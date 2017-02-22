@@ -1,4 +1,2 @@
-This is your new Play application
-=================================
-
-This file will be packaged with your application, when using `activator dist`.
+This play application is a new play framework with modified files from a seperate repository that "broke". 
+All files were made from scratch and code was added from "broken" project to get the ball rolling again.
