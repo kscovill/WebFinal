@@ -4,6 +4,11 @@
 
 # Home page
 GET     /                           controllers.Application.index()
+GET 	/score						controllers.Application.scoreScreen()
+POST    /task                       controllers.Application.addTask()
+POST	/score						controllers.Application.addScore()
+GET		/users						controllers.Application.getUsername()
+GET     /tasks                      controllers.Application.getTasks()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

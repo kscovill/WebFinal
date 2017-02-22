@@ -1,0 +1,36 @@
+@(message: String, scoreForm: Form[score])
+@implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
+
+@main("Welcome to Play 2.3") {
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a id="titleLink" class="brand" href="/">@message.toUpperCase</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        
+
+        @helper.form(action = routes.Application.addScore(), 'class -> "well form-horizontal") {
+            @helper.inputText(scoreForm("username"), '_label -> "Username")
+            @helper.inputText(scoreForm("time"), '_label -> "Time")
+            <div class="controls">
+                <input type="submit" class="btn btn-primary"/>
+            </div>
+        }
+        
+        <ol id="users" start = "0" style = "display: inline-block; margin-left:10%; list-style-type: decimal;">
+        <li> Name </li>
+        
+        </ol>
+        <ul id="times" style = "display: inline-block; list-style-type: none;">
+        <li> Time </li>
+        
+        </ul>
+        
+    </div>
+
+}
