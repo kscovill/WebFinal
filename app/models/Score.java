@@ -7,24 +7,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class score {
+public class Score {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @Required
-    private String username;
+    private String user;
     
     @Required
     private double time;
 
-    public String getUsername() {
-		return username;
+    public String getUser() {
+		return user;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 	public double getTime() {

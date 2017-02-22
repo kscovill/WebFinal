@@ -1,12 +1,10 @@
 body {
     padding-top: 50px;
-    background-color: red;
+    background-color: #EBEBE7;
+    
 }
 .container{
-	background-color: blue;
-}
-.well form-horizontal{
-	background-color: green;
+	background-color: rgb(201, 204, 59);
 }
 li:first-child {
 	list-style-type:none;
