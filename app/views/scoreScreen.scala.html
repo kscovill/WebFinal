@@ -14,7 +14,7 @@
     <div class="container">
         
 
-        @helper.form(action = routes.Application.addScore(), 'class -> "well form-horizontal") {
+        @helper.form(action = routes.Application.addScore(), 'class -> "well form-horizontal", 'style -> "background-color: green;") {
             @helper.inputText(scoreForm("username"), '_label -> "Username")
             @helper.inputText(scoreForm("time"), '_label -> "Time")
             <div class="controls">
