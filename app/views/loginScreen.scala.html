@@ -1,0 +1,30 @@
+@(message: String, loginForm: Form[LoginForm])
+@implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
+
+@mainLogin("Time Tracker Login") {
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a id="titleLink" class="brand" href="/">@message.toUpperCase</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        
+
+        @helper.form(action = routes.LoginApplication.checkUserPass(), 'class -> "well form-horizontal", 'style -> "color: white; background-color: #2F1B44;") {
+            @helper.inputText(loginForm("username"), '_label -> "Username")
+            @helper.inputPassword(loginForm("password"), '_label -> "Password")
+            <div class="controls">
+                <input type="submit" class="btn btn-primary"/>
+                <button type = "button">Create User</button>
+            </div>
+        }
+        
+ 
+        
+    </div>
+
+}

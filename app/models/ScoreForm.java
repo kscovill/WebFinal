@@ -2,16 +2,8 @@ package models;
 
 import play.data.validation.Constraints.Required;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Entity
-public class Score {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class ScoreForm {
 
     @Required
     private String user;
@@ -34,13 +26,5 @@ public class Score {
 	public void setTime(double time) {
 		this.time = time;
 	}
-
-	public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
 }
