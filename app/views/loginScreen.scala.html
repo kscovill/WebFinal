@@ -19,7 +19,13 @@
             @helper.inputPassword(loginForm("password"), '_label -> "Password")
             <div class="controls">
                 <input type="submit" class="btn btn-primary"/>
-                <button type = "button">Create User</button>
+                
+            </div>
+        }
+        @helper.form(action = routes.LoginApplication.createUserScreen(), 'class -> "well form-horizontal", 'style -> "color: white; background-color: #2F1B44;") {
+            <div class="controls">
+                <input type="submit" class="btn btn-primary" value = "Create User"/>
+                
             </div>
         }
         
