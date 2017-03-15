@@ -22,7 +22,33 @@ public class LoginPersistenceServiceImpl implements LoginPersistenceService {
     }
 
     @Override
-    public List<Login> fetchAllUsers() {
-        return em.createQuery("from Login ", Login.class).getResultList();
+    public List<Login> fetchPass() {
+        return em.createQuery("select password from Login where username = 'Kyle'").getResultList();
+    }
+    
+    @Override
+    public List<Login> fetchSalt() {
+        return em.createQuery("select salt from Login where username = 'Kyle'").getResultList();
+    }
+    
+    @Override
+    public boolean userExists(String user){
+    	Login login = fetchUser(user);
+    	return (login != null);
+    }
+    
+    // From theButton
+    
+    @Override
+    public Login fetchUser(String user) {
+        List<Login> list = em.createQuery("SELECT a FROM Login a WHERE a.username = :user", Login.class)
+                              .setParameter("user", user)
+                              .getResultList();
+        
+        if (list.size() > 0){
+        	return list.get(0);
+        }
+       
+        return null;
     }
 }

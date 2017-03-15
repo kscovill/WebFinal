@@ -13,7 +13,6 @@
     </encoder>
   </appender>
 
-  <logger name="play" level="INFO" />
   <logger name="controllers" level="INFO" />
 
   <root level="WARN">

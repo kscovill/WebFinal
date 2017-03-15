@@ -26,14 +26,14 @@ public class Application extends Controller {
 	private ScorePersistenceService scorePersist;
 	
 	public Result scoreScreen() {
-        return ok(scoreScreen.render("Time Tracker", Form.form(ScoreForm.class)));
+        return ok(scoreScreen.render("Time Tracker", Form.form(ScoreForm.class),""));
 	}
     
 	
     public Result addScore() {
         Form<ScoreForm> form = Form.form(ScoreForm.class).bindFromRequest();
         if (form.hasErrors()) {
-            return badRequest(scoreScreen.render("Time Tracker", form));
+            return badRequest(scoreScreen.render("Time Tracker", form, ""));
         }
         
         Score score = new Score();

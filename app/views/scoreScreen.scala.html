@@ -1,4 +1,4 @@
-@(message: String, scoreForm: Form[ScoreForm])
+@(message: String, scoreForm: Form[ScoreForm], username:String)
 @implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
 
 @main("Time Tracker") {
@@ -15,7 +15,7 @@
         
 
         @helper.form(action = routes.Application.addScore(), 'class -> "well form-horizontal", 'style -> "color: white; background-color: #2F1B44;") {
-            @helper.inputText(scoreForm("user"), '_label -> "Name")
+            @helper.inputText(scoreForm("user"), '_label -> "Name" )
             @helper.inputText(scoreForm("time"), '_label -> "Time")
             <div class="controls">
                 <input type="submit" class="btn btn-primary"/>

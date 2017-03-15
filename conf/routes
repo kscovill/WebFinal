@@ -5,7 +5,6 @@
 # Home page
 GET 	/							@controllers.LoginApplication.loginScreen()
 GET		/create						@controllers.LoginApplication.createUserScreen()
-GET		/users						@controllers.LoginApplication.getUsers()
 GET  	/check						@controllers.LoginApplication.checkUserPass()
 POST	/user						@controllers.LoginApplication.addUser()
 GET		/scoreScreen				@controllers.Application.scoreScreen()
