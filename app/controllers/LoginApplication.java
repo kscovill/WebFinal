@@ -1,6 +1,5 @@
 package controllers;
 
-
 import jpa.Login;
 import jpa.Score;
 
@@ -11,6 +10,10 @@ import services.LoginPersistenceService;
 import views.html.loginScreen;
 import views.html.createUserScreen;
 import views.html.scoreScreen;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 import play.data.Form;
 import play.mvc.Controller;
@@ -33,7 +36,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
 @Named
 public class LoginApplication extends Controller {
 
@@ -41,124 +43,115 @@ public class LoginApplication extends Controller {
 	private static final Random RANDOM = new SecureRandom();
 	private static final int ITERATIONS = 10000;
 	private static final int KEY_LENGTH = 256;
-	
+
 	@Inject
 	private LoginPersistenceService loginPersist;
-	
-	
+
 	public Result loginScreen() {
 		log.info("Somebody is at the login screen");
-        return ok(loginScreen.render("Time Tracker Login", Form.form(LoginForm.class)));
+		session().remove("username");
+		log.debug("Username Session ended");
+		return ok(loginScreen.render("Time Tracker Login", Form.form(LoginForm.class)));
 	}
-    
-	public Result createUserScreen(){
+
+	public Result createUserScreen() {
 		log.info("Someone is at the create user screen");
-		return ok(createUserScreen.render("Time Tracker Create User", Form.form(LoginForm.class)));
+		return ok(createUserScreen.render("Time Tracker Log In", Form.form(LoginForm.class)));
 	}
+
+	public Result addUser() {
+
+		log.debug("Attempting to add a new user");
+
+		Form<LoginForm> form = Form.form(LoginForm.class).bindFromRequest();
+
+		if (form.hasErrors()) {
+			log.info("There are errors");
+			return badRequest(createUserScreen.render("Time Tracker Login", form));
+		}
+
+		String username = form.get().getUsername();
+
+		Login login = new Login();
+
+		// From theButton
+		if (loginPersist.userExists(username)) {
+			log.info("username '{}' already exists, can't create account", username);
+			form.reject("username", "That username already exists, please enter a different username");
+			return badRequest(createUserScreen.render("Time Tracker Log In", form));
+		}
+		try {
+			byte[] newSalt = getSalt();
+			log.debug("Attempting to hash password");
+			login.setPassword(securePassword(form.get().getPassword(), newSalt));
+			log.debug("Password added");
+			log.info("User '{}' added", username);
+			login.setUsername(username);
+			login.setSalt(newSalt);
+			loginPersist.saveLogin(login);
+			return redirect(routes.LoginApplication.loginScreen());
+		} catch (NoSuchAlgorithmException e) {
+			log.info("Password Hashing Failed");
+			return redirect(routes.LoginApplication.loginScreen());
+		}
+
+	}
+
+	// From StackOverFlow 
 	
-    public Result addUser() {
-    	
-    	
-    	log.debug("Attempting to add a new user");
-    	
-        Form<LoginForm> form = Form.form(LoginForm.class).bindFromRequest();
-        
-        if (form.hasErrors()) {
-        	log.info("There are errors");
-            return badRequest(createUserScreen.render("Time Tracker Create User", form));
-        }
-        
-        
-        String username = form.get().getUsername();
-        
-        Login login = new Login();
-        
-        // From theButton
-        if (loginPersist.userExists(username)) {
-            log.info("username '{}' already exists, can't create account", username);
-            form.reject("username", "That username already exists, please enter a different username");
-            return badRequest(createUserScreen.render("Time Tracker Create User", form));
-        }
-        
-        
-        log.info("User '{}' added",username);
-        login.setUsername(username);
-//        byte[] salt = getNextSalt();
-//        login.setSalt(salt);
-//        char[] pass = form.get().getPassword().toCharArray();
-//        String finalPass =hash(pass, salt).toString();
-//        login.setPassword(finalPass);
-        loginPersist.saveLogin(login);
-        return redirect(routes.LoginApplication.loginScreen());
-    }
-    
-    // FROM StackOverFlow by assylias
-    
-    public static byte[] getNextSalt(){
-    	byte[] salt = new byte[16];
-    	RANDOM.nextBytes(salt);
-    	return salt;
-    }
-    
-    public static byte[] hash(char[] password, byte[] salt) {
-        PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
-        Arrays.fill(password, Character.MIN_VALUE);
-        try {
-          SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-          return skf.generateSecret(spec).getEncoded();
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-          throw new AssertionError("Error while hashing a password: " + e.getMessage(), e);
-        } finally {
-          spec.clearPassword();
-        }
-      }
+	private static String securePassword(String passwordToHash, byte[] salt) {
+		String generatedPassword = null;
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-512");
+			md.update(salt);
+			byte[] bytes = md.digest(passwordToHash.getBytes());
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < bytes.length; i++) {
+				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			generatedPassword = sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return generatedPassword;
+	}
 
-    public static boolean isExpectedPassword(char[] password, byte[] salt, byte[] expectedHash) {
-        byte[] pwdHash = hash(password, salt);
-        Arrays.fill(password, Character.MIN_VALUE);
-        if (pwdHash.length != expectedHash.length) return false;
-        for (int i = 0; i < pwdHash.length; i++) {
-          if (pwdHash[i] != expectedHash[i]) return false;
-        }
-        return true;
-      }
-    
-    public Result checkUserPass(){
-    	Form<LoginForm> form = Form.form(LoginForm.class).bindFromRequest();
-        if (form.hasErrors()) {
-        	log.info("There are errors");
-            return badRequest(loginScreen.render("Time Tracker Login", form));
-        }
-        String username = form.get().getUsername();
-        log.info("Checking if {} exists", username);
-        if(loginPersist.userExists(form.get().getUsername())){
-        	log.info("{} exists in the database!", username);
-        	session("username",username);
-      
-        	return redirect(controllers.routes.Application.scoreScreen());
-        }
-    	
-        log.info(" {} does not exist in the database.", username);
-        form.reject("username","That Username does not exist.");
-        return badRequest(loginScreen.render("Time Tracker Login", form));
- //   	String pass = form.get().getPassword();
-    	
-//    	
-//    	byte[] salt = loginPersist.fetchSalt().getBytes();
-//    	System.out.println(salt);
-//    	char[] password = pass.toCharArray();
-//    	System.out.println(password);
-//    	if(isExpectedPassword(password,salt,hash)){
-//    		System.out.println("PASS");
-//    		return ok(views.html.scoreScreen.render("Score Screen", Form.form(ScoreForm.class),user));
-//    	}else{
-//    		System.out.println("FAIL");
-//    		return ok(views.html.scoreScreen.render("Score Screen", Form.form(ScoreForm.class),user));
-//        	
-//    		//return badRequest(loginScreen.render("Time Tracker Login", form));
-//    	}
-    	
-    	
-    }
-}    
+	// Add salt
+	private static byte[] getSalt() throws NoSuchAlgorithmException {
+		SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+		byte[] salt = new byte[16];
+		sr.nextBytes(salt);
+		return salt;
+	}
 
+	public Result checkUserPass() {
+
+		Form<LoginForm> form = Form.form(LoginForm.class).bindFromRequest();
+		if (form.hasErrors()) {
+			log.info("There are errors");
+			return badRequest(loginScreen.render("Time Tracker Login", form));
+		}
+		String username = form.get().getUsername();
+
+		log.info("Checking if {} exists", username);
+		if (loginPersist.userExists(form.get().getUsername())) {
+			log.info("{} exists in the database!", username);
+			session("username", username);
+
+			log.info("Checking Password for {}", username);
+			if (securePassword(form.get().getPassword(), loginPersist.fetchSalt(username))
+					.equals(loginPersist.fetchPass(username))) {
+				log.info("Password exists, access granted");
+				return redirect(controllers.routes.Application.scoreScreen());
+			}
+			log.info("Password for {} is incorrect");
+
+		} else {
+			log.info(" {} does not exist in the database.", username);
+		}
+		form.reject("username", "That Username and/or Password does not exist.");
+		form.reject("password", "");
+		return badRequest(loginScreen.render("Time Tracker Login", form));
+
+	}
+}

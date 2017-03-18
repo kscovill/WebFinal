@@ -13,17 +13,14 @@
 
     <div class="container">
         
-
         @helper.form(action = routes.LoginApplication.addUser(), 'class -> "well form-horizontal", 'style -> "color: white; background-color: #2F1B44;") {
-            @helper.inputText(loginForm("username"), '_label -> "Username")
-            
+            @helper.inputText(loginForm("username"), '_label -> "Desired Username: ")
+            @helper.inputPassword(loginForm("password"), '_label -> "Desired Password: ")
             <div class="controls">
                 <input type="submit" class="btn btn-primary"/>
             </div>
         }
-        
- 
-        
+
     </div>
 
 }

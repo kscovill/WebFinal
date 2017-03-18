@@ -4,16 +4,17 @@ import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Required;
 
-
 public class LoginForm {
 
-    @Required
-    @MinLength(3)
-    @MaxLength(20)
-    private String username;
-    
-//    @Required
-//    private String password;
+	@Required
+	@MinLength(3)
+	@MaxLength(20)
+	private String username;
+
+	@MinLength(3)
+	@MaxLength(20)
+	@Required
+	private String password;
 
 	public String getUsername() {
 		return username;
@@ -23,13 +24,12 @@ public class LoginForm {
 		this.username = username;
 	}
 
-//	public String getPassword() {
-//		return password;
-//	}
-//
-//	public void setPassword(String password) {
-//		this.password = password;
-//	}
+	public String getPassword() {
+		return password;
+	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 }

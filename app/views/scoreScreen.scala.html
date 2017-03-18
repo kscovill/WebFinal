@@ -6,7 +6,7 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container-fluid">
-                <a id="titleLink" class="brand" href="/">@message.toUpperCase</a>
+                <a id="logOutLink" class="brand" href = "/">LOG OUT</a>
             </div>
         </div>
     </div>
@@ -15,7 +15,10 @@
         
 
         @helper.form(action = routes.Application.addScore(), 'class -> "well form-horizontal", 'style -> "color: white; background-color: #2F1B44;") {
-            @helper.inputText(scoreForm("user"), '_label -> "Name" )
+            
+            @helper.input(scoreForm("User")) { (id, name, value, args) =>
+   				 <input type="text" name="Name" id="name" value=@username @toHtmlArgs(args) readonly>
+			} 	
             @helper.inputText(scoreForm("time"), '_label -> "Time")
             <div class="controls">
                 <input type="submit" class="btn btn-primary"/>
@@ -32,5 +35,6 @@
         </ul>
         
     </div>
+    
 
 }

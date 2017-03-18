@@ -5,7 +5,7 @@ import jpa.Score;
 import java.util.List;
 
 public interface ScorePersistenceService {
-    void saveScore(Score t);
+	void saveScore(Score t);
 
-    List<Score> fetchAllScores();
+	List<Score> fetchAllScores();
 }

@@ -3,14 +3,14 @@
 # ~~~~
 
 # Home page
-GET 	/							@controllers.LoginApplication.loginScreen()
-GET		/create						@controllers.LoginApplication.createUserScreen()
-GET  	/check						@controllers.LoginApplication.checkUserPass()
-POST	/user						@controllers.LoginApplication.addUser()
-GET		/scoreScreen				@controllers.Application.scoreScreen()
-POST	/score						@controllers.Application.addScore()
-GET		/scores						@controllers.Application.getScores()
+GET    /               @controllers.LoginApplication.loginScreen()
+GET    /create         @controllers.LoginApplication.createUserScreen()
+POST   /check          @controllers.LoginApplication.checkUserPass()
+POST   /user           @controllers.LoginApplication.addUser()
+GET    /scoreScreen    @controllers.Application.scoreScreen()
+POST   /score          @controllers.Application.addScore()
+GET    /scores         @controllers.Application.getScores()
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET    /assets/*file   controllers.Assets.at(path="/public", file)

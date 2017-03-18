@@ -2,21 +2,19 @@ package models;
 
 import play.data.validation.Constraints.Required;
 
-
 public class ScoreForm {
 
-    @Required
-    private String user;
-    
-    @Required
-    private double time;
+	private String User;
 
-    public String getUser() {
-		return user;
+	@Required
+	private double time;
+
+	public String getUser() {
+		return User;
 	}
 
 	public void setUser(String user) {
-		this.user = user;
+		this.User = user;
 	}
 
 	public double getTime() {

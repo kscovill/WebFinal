@@ -5,13 +5,13 @@ import jpa.Login;
 import java.util.List;
 
 public interface LoginPersistenceService {
-    void saveLogin(Login t);
+	void saveLogin(Login t);
 
-    List<Login> fetchPass();
-    
-    List<Login> fetchSalt();
-    
-    boolean userExists(String user);
+	boolean userExists(String user);
 
 	Login fetchUser(String user);
+
+	byte[] fetchSalt(String user);
+
+	String fetchPass(String user);
 }
