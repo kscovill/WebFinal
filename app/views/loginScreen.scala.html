@@ -5,8 +5,8 @@
 
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
-            <div class="container-fluid">
-                <a id="titleLink" class="brand" href="/create">CREATE USER</a>
+            <div class="container-fluid" style = "background-color:rgba(15,15,15,.9);">
+                <a id="titleLink" class="brand" href="/create" style = "color:white; margin-left:90%;">CREATE USER</a>
             </div>
         </div>
     </div>
@@ -14,11 +14,13 @@
     <div class="container">
         
 
-        @helper.form(action = routes.LoginApplication.checkUserPass(), 'class -> "well form-horizontal", 'style -> "color: white; background-color: #2F1B44;") {
-            @helper.inputText(loginForm("username"), '_label -> "Username")
-            @helper.inputPassword(loginForm("password"), '_label -> "Password")
-            <div class="controls">
-                <input type="submit" class="btn btn-primary"/>
+        @helper.form(action = routes.LoginApplication.checkUserPass(), 'class -> "well form-horizontal formNew") {
+           <div class = "boxes">
+	            @helper.inputText(loginForm("username"), '_label -> "Username")
+	            @helper.inputPassword(loginForm("password"), '_label -> "Password")
+	            <div class="controls">
+	                <input type="submit" class="btn btn-primary center"/>
+          		</div>
             </div>
         }
 

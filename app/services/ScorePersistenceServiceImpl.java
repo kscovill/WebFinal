@@ -1,5 +1,6 @@
 package services;
 
+import jpa.Login;
 import jpa.Score;
 
 import java.util.List;
@@ -24,5 +25,11 @@ public class ScorePersistenceServiceImpl implements ScorePersistenceService {
 	@Override
 	public List<Score> fetchAllScores() {
 		return em.createQuery("from Score order by time asc ", Score.class).getResultList();
+	}
+	
+	@Override
+	public List<Score> fetchYourScores(String user) {
+		return em.createQuery("SELECT a FROM Score a WHERE a.user = :user ORDER BY time ASC", Score.class)
+				.setParameter("user", user).getResultList();
 	}
 }

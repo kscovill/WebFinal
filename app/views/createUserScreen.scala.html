@@ -1,26 +1,31 @@
 @(message: String, loginForm: Form[LoginForm])
 @implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
 
-@mainLogin("Time Tracker Login") {
+@mainLogin("Time Tracker Create User") {
 
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
-            <div class="container-fluid">
-                <a id="titleLink" class="brand" href="/">@message.toUpperCase</a>
+            <div class="container-fluid" style = "background-color:rgba(15,15,15,.9);">
+                <a id="titleLink" class="brand" href="/" style = "color:white; margin-left:85%;">@message.toUpperCase</a>
             </div>
         </div>
     </div>
 
     <div class="container">
         
-        @helper.form(action = routes.LoginApplication.addUser(), 'class -> "well form-horizontal", 'style -> "color: white; background-color: #2F1B44;") {
-            @helper.inputText(loginForm("username"), '_label -> "Desired Username: ")
-            @helper.inputPassword(loginForm("password"), '_label -> "Desired Password: ")
-            <div class="controls">
-                <input type="submit" class="btn btn-primary"/>
-            </div>
+        @helper.form(action = routes.LoginApplication.addUser(), 'class -> "well form-horizontal formNew") {
+           <div class = "boxes">
+	            @helper.inputText(loginForm("username"), '_label -> "Desired Username: ")
+	            @helper.inputPassword(loginForm("password"), '_label -> "Desired Password: ")
+	            <div class="controls">
+	                <input type="submit" class="btn btn-primary center"/>
+	            </div>
+        	</div>
+        
         }
+        
 
     </div>
+    
 
 }

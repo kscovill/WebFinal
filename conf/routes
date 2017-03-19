@@ -3,13 +3,21 @@
 # ~~~~
 
 # Home page
+
 GET    /               @controllers.LoginApplication.loginScreen()
+
+# Create User Screen Page
+
 GET    /create         @controllers.LoginApplication.createUserScreen()
 POST   /check          @controllers.LoginApplication.checkUserPass()
 POST   /user           @controllers.LoginApplication.addUser()
+
+#Score Screen Page
+
 GET    /scoreScreen    @controllers.Application.scoreScreen()
 POST   /score          @controllers.Application.addScore()
 GET    /scores         @controllers.Application.getScores()
+GET    /yourScores	   @controllers.Application.getYourScores()
 
 
 # Map static resources from the /public folder to the /assets URL path

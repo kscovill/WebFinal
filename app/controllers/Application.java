@@ -61,4 +61,11 @@ public class Application extends Controller {
 		List<Score> scores = scorePersist.fetchAllScores();
 		return ok(play.libs.Json.toJson(scores));
 	}
+	
+	public Result getYourScores(){
+		String user = session("username");
+		log.debug("SESSION USERNAME {} FOUND",user);
+		List<Score> yourScores = scorePersist.fetchYourScores(user);
+		return ok(play.libs.Json.toJson(yourScores));
+	}
 }

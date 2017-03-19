@@ -3,10 +3,10 @@
 
 @main("Time Tracker") {
 
-    <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-fixed-top" >
         <div class="navbar-inner">
-            <div class="container-fluid">
-                <a id="logOutLink" class="brand" href = "/">LOG OUT</a>
+            <div class="container-fluid" style = "background-color:rgba(15,15,15,.9);">
+                <a id="logOutLink" class="brand" href = "/" style = "color:white; margin-left:90%;">LOG OUT</a>
             </div>
         </div>
     </div>
@@ -14,27 +14,41 @@
     <div class="container">
         
 
-        @helper.form(action = routes.Application.addScore(), 'class -> "well form-horizontal", 'style -> "color: white; background-color: #2F1B44;") {
-            
-            @helper.input(scoreForm("User")) { (id, name, value, args) =>
-   				 <input type="text" name="Name" id="name" value=@username @toHtmlArgs(args) readonly>
-			} 	
-            @helper.inputText(scoreForm("time"), '_label -> "Time")
-            <div class="controls">
-                <input type="submit" class="btn btn-primary"/>
+        @helper.form(action = routes.Application.addScore(), 'class -> "well form-horizontal formNew2") {
+            <div class = "boxes">
+	            @helper.input(scoreForm("User")) { (id, name, value, args) =>
+	   				 <input type="text" name="Name" id="name" value=@username @toHtmlArgs(args) readonly>
+				} 	
+	            @helper.inputText(scoreForm("time"), '_label -> "Time")
+	            <div class="controls">
+	                <input type="submit" class="btn btn-primary center"/>
+	            </div>
             </div>
         }
         
-        <ol id="users" start = "0" style = "display: inline-block; margin-left:10%; list-style-type: decimal;">
-        <li> Name </li>
-        
-        </ol>
-        <ul id="times" style = "display: inline-block; list-style-type: none;">
-        <li> Time </li>
-        
-        </ul>
-        
+	        
     </div>
     
+    <div>
+    	@helper.form(action = routes.Application.addScore(), 'class -> "well form-horizontal formNew3"){
+    		<div class = "box2">
+	    		<h3 style = "margin-left: -7%;"> PERSONAL LEADERBOARD </h3>
+			    <ol   class = "li1 " id="yourTimes" start = "0" style =  "margin-left:8%; list-style-type: decimal;">
+			        <li> Time </li>
+			    </ol>
+	    		
+	    		<h3 style = "margin-left: -6%;"> GLOBAL LEADERBOARDS </h3>
+		   		<ol class = "li1" id="users" start = "0" style = "display: inline-block; list-style-type: decimal;">
+			        <li> Name </li>
+			        
+			    </ol>
+			    <ul class = "li1" id="times" style = "display: inline-block; list-style-type: none;">
+			        <li> Time </li>
+			        
+			    </ul>
+		    </div>
+			  
+	    }
+    </div>
 
 }

@@ -8,4 +8,7 @@ public interface ScorePersistenceService {
 	void saveScore(Score t);
 
 	List<Score> fetchAllScores();
+
+	List<Score> fetchYourScores(String user);
+	
 }
