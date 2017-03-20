@@ -35,7 +35,7 @@ public class Application extends Controller {
 	public Result scoreScreen() {
 		String currentUser = session("username");
 		if (currentUser == null) {
-			log.debug("Attempted Access to scoreScreen without authorization");
+			log.info("Attempted Access to scoreScreen without authorization");
 			return redirect(routes.LoginApplication.loginScreen());
 		}
 		log.info("{} at Score Screen", currentUser);

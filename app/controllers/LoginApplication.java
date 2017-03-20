@@ -49,8 +49,8 @@ public class LoginApplication extends Controller {
 
 	public Result loginScreen() {
 		log.info("Somebody is at the login screen");
-		session().remove("username");
-		log.debug("Username Session ended");
+		session().clear();
+		log.debug("Session is cleared");
 		return ok(loginScreen.render("Time Tracker Login", Form.form(LoginForm.class)));
 	}
 
