@@ -1,4 +1,4 @@
-@(message: String, scoreForm: Form[ScoreForm], username:String)
+@(message: String, scoreForm: Form[ScoreForm], username:String, score:String)
 @implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
 
 @main("Time Tracker") {
@@ -17,9 +17,11 @@
         @helper.form(action = routes.Application.addScore(), 'class -> "well form-horizontal formNew2") {
             <div class = "boxes">
 	            @helper.input(scoreForm("User")) { (id, name, value, args) =>
-	   				 <input type="text" name="Name" id="name" value=@username @toHtmlArgs(args) readonly>
+	   				 <input type="text" name="Name" style = "text-align:center;" id="name" value=@username @toHtmlArgs(args) readonly>
 				} 	
-	            @helper.inputText(scoreForm("time"), '_label -> "Time")
+				@helper.input(scoreForm("Score")) { (id, name, value, args) =>
+	   				 <input type="text" name="Score" style = "text-align:center;" id="score" value=@score @toHtmlArgs(args) readonly>
+				} 	
 	            <div class="controls">
 	                <input type="submit" class="btn btn-primary center"/>
 	            </div>
@@ -34,7 +36,7 @@
     		<div class = "box2">
 	    		<h3 style = "margin-left: -7%;"> PERSONAL LEADERBOARD </h3>
 			    <ol   class = "li1 " id="yourTimes" start = "0" style =  "margin-left:8%; list-style-type: decimal;">
-			        <li> Time </li>
+			        <li> Score </li>
 			    </ol>
 	    		
 	    		<h3 style = "margin-left: -6%;"> GLOBAL LEADERBOARDS </h3>
@@ -43,7 +45,7 @@
 			        
 			    </ol>
 			    <ul class = "li1" id="times" style = "display: inline-block; list-style-type: none;">
-			        <li> Time </li>
+			        <li> Score </li>
 			        
 			    </ul>
 		    </div>

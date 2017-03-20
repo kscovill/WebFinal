@@ -2,6 +2,7 @@ package controllers;
 
 import jpa.Score;
 import models.ScoreForm;
+import models.GameForm;
 
 import services.ScorePersistenceService;
 
@@ -9,6 +10,7 @@ import play.api.data.*;
 
 import views.html.scoreScreen;
 import views.html.loginScreen;
+import views.html.gameScreen;
 
 import play.data.Form;
 import play.mvc.Controller;
@@ -38,21 +40,37 @@ public class Application extends Controller {
 			log.info("Attempted Access to scoreScreen without authorization");
 			return redirect(routes.LoginApplication.loginScreen());
 		}
+		
+		String score = session("score");
 		log.info("{} at Score Screen", currentUser);
-		return ok(scoreScreen.render("Time Tracker", Form.form(ScoreForm.class), currentUser));
+		return ok(scoreScreen.render("Time Tracker", Form.form(ScoreForm.class), currentUser, score));
+	}
+	
+	public Result moveToScore(){
+		Form<GameForm> form = Form.form(GameForm.class).bindFromRequest();
+		if (form.hasErrors()) {
+			log.info("There are errors in game screen");
+			return badRequest(gameScreen.render("Snake Game", form));
+		}
+		String score = form.get().getScore();
+		session("score",score);
+		return redirect(routes.Application.scoreScreen());
 	}
 
+	public Result startGame(){
+		return ok(gameScreen.render("Snake Game", Form.form(GameForm.class)));
+	}
 	public Result addScore() {
 		log.info("Attempting to add score to database");
 		Form<ScoreForm> form = Form.form(ScoreForm.class).bindFromRequest();
 		if (form.hasErrors()) {
 			log.info("Score Form has errors");
-			return badRequest(scoreScreen.render("Time Tracker", form, session("username")));
+			return badRequest(scoreScreen.render("Time Tracker", form, session("username"), session("score")));
 		}
 		log.info("Score succesfully persisted");
 		Score score = new Score();
 		score.setUser(session("username"));
-		score.setTime(form.get().getTime());
+		score.setTime(Double.parseDouble(session("score")));
 		scorePersist.saveScore(score);
 		return redirect(routes.Application.scoreScreen());
 	}

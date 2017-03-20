@@ -24,12 +24,12 @@ public class ScorePersistenceServiceImpl implements ScorePersistenceService {
 
 	@Override
 	public List<Score> fetchAllScores() {
-		return em.createQuery("SELECT a FROM Score a ORDER BY time ASC", Score.class).setMaxResults(30).getResultList();
+		return em.createQuery("SELECT a FROM Score a ORDER BY score DESC", Score.class).setMaxResults(30).getResultList();
 	}
 	
 	@Override
 	public List<Score> fetchYourScores(String user) {
-		return em.createQuery("SELECT a FROM Score a WHERE a.user = :user ORDER BY time ASC", Score.class)
+		return em.createQuery("SELECT a FROM Score a WHERE a.user = :user ORDER BY score DESC", Score.class)
 				.setParameter("user", user).getResultList();
 	}
 }

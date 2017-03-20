@@ -1,0 +1,61 @@
+@(message: String, gameForm: Form[GameForm])
+@implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
+
+@game("Snake Game") {
+
+    <div class="navbar navbar-fixed-top" >
+        <div class="navbar-inner">
+            <div class="container-fluid" style = "background-color:rgba(15,15,15,.9);">
+                <a id="logOutLink" class="brand" href = "/" style = "color:white; margin-left:90%;">LOG OUT</a>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <div style = "margin-left:30%; width:800px; text-align:center;">
+	    <div id="mode-wrapper">
+	    	Select which mode you would like to play in.
+		  	<br/>
+		    <button id="Easy">Easy</button>
+		    
+		    <button id="Medium">Medium</button>
+		    
+		    <button id="Difficult">Hard</button>
+	    </div>
+	    <br/>
+	   <br/>
+	   	<br/> 
+	    <div style = "display:inline; color:white;">
+	    	
+			@helper.form(action = routes.Application.moveToScore()) {
+           
+	            @helper.input(gameForm("Score")) { (id, name, value, args) =>
+	   				 <input type="text"  name="Score" style = "text-align:center;" id="high-score-box"  @toHtmlArgs(args) readonly>
+				}
+	             <div class="controls">
+	                <input type="submit" class="btn btn-primary" value = "Submit High Score">
+	            </div>
+        	
+        
+        }
+		</div>
+		
+		<br/>
+		<br/>
+
+	    <div id="game-area" tabindex="0">
+	    </div>
+    
+	    <script type="text/javascript" src="@routes.Assets.at("snake/snake/js/snake.js")"></script>
+	    <script type="text/javascript">
+	    sessionStorage.clear();
+	    sessionStorage.setItem('jsSnakeHighScore', 0);
+	    var mySnakeBoard = new SNAKE.Board(  {
+	                                            boardContainer: "game-area",
+	                                            fullScreen: false,
+	                                            width: 800,
+	                                        	height:600
+	                                        });    
+	    </script>
+    </div
+}

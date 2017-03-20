@@ -10,6 +10,7 @@ import services.LoginPersistenceService;
 import views.html.loginScreen;
 import views.html.createUserScreen;
 import views.html.scoreScreen;
+import views.html.gameScreen;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -97,8 +98,8 @@ public class LoginApplication extends Controller {
 
 	}
 
-	// From StackOverFlow 
-	
+	// From StackOverFlow
+
 	private static String securePassword(String passwordToHash, byte[] salt) {
 		String generatedPassword = null;
 		try {
@@ -136,13 +137,13 @@ public class LoginApplication extends Controller {
 		log.info("Checking if {} exists", username);
 		if (loginPersist.userExists(form.get().getUsername())) {
 			log.info("{} exists in the database!", username);
-			session("username", username);
+			session("username", username.toUpperCase());
 
 			log.info("Checking Password for {}", username);
 			if (securePassword(form.get().getPassword(), loginPersist.fetchSalt(username))
 					.equals(loginPersist.fetchPass(username))) {
 				log.info("Password exists, access granted");
-				return redirect(controllers.routes.Application.scoreScreen());
+				return redirect(controllers.routes.Application.startGame());
 			}
 			log.info("Password for {} is incorrect");
 

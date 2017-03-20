@@ -7,7 +7,7 @@ public class ScoreForm {
 	private String User;
 
 	@Required
-	private double time;
+	private double Score;
 
 	public String getUser() {
 		return User;
@@ -18,11 +18,11 @@ public class ScoreForm {
 	}
 
 	public double getTime() {
-		return time;
+		return Score;
 	}
 
-	public void setTime(double time) {
-		this.time = time;
+	public void setTime(double score) {
+		this.Score = score;
 	}
 
 }

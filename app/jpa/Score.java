@@ -14,7 +14,7 @@ public class Score {
     private String user;
     
     
-    private double time;
+    private double score;
 
     public String getUser() {
 		return user;
@@ -24,12 +24,12 @@ public class Score {
 		this.user = user;
 	}
 
-	public double getTime() {
-		return time;
+	public double getScore() {
+		return score;
 	}
 
-	public void setTime(double time) {
-		this.time = time;
+	public void setTime(double score) {
+		this.score = score;
 	}
 
 	public Long getId() {
