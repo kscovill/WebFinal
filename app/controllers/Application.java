@@ -58,6 +58,10 @@ public class Application extends Controller {
 	}
 
 	public Result startGame(){
+		if(session("score")==null || session("score").equals("")){
+			session("score","0");
+			log.info("Score is set to 0");
+		}
 		return ok(gameScreen.render("Snake Game", Form.form(GameForm.class)));
 	}
 	public Result addScore() {

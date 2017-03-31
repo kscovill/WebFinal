@@ -1,4 +1,3 @@
-
 #!/bin/sh -x
 
 TEMP=$(mktemp -d)

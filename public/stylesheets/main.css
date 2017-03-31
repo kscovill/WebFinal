@@ -50,7 +50,9 @@ body {
 }
 
 .body{
-	  background-size: 100% 136%; 
-	  background-repeat:no-repeat; 
-	  background-image:url(@routes.Assets.at("skyline.jpg"));
+	background: url(@routes.Assets.at("skyline.jpg")) no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
 }
