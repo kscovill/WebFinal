@@ -19,7 +19,10 @@ POST   /score          @controllers.Application.addScore()
 GET    /scores         @controllers.Application.getScores()
 GET    /yourScores	   @controllers.Application.getYourScores()
 
+# Game Page
+
 GET    /game		   @controllers.Application.startGame()
 POST   /moveToScore	   @controllers.Application.moveToScore()
+
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file   controllers.Assets.at(path="/public", file)

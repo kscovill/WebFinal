@@ -1,3 +1,4 @@
+
 $ ->
   $.get "/scores", (data) ->
     $.each data, (scoreScreen, score) ->

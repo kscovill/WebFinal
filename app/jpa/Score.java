@@ -4,19 +4,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * Setup for our Score persistence. includes get and set methods for id, user,
+ * and score. These methods get or set each variable
+ * 
+ * @author Kyle
+ *
+ */
+
 @Entity
 public class Score {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-    private String user;
-    
-    
-    private double score;
+	private String user;
 
-    public String getUser() {
+	private double score;
+
+	public String getUser() {
 		return user;
 	}
 
@@ -28,16 +35,16 @@ public class Score {
 		return score;
 	}
 
-	public void setTime(double score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 
 	public Long getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 }

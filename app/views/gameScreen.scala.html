@@ -1,8 +1,9 @@
 @(message: String, gameForm: Form[GameForm])
 @implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
 
-@game("Snake Game") {
+@main("Snake Game") {
 
+	<link rel = "stylesheet" id= "style" type= "text/css"  href= "@routes.Assets.at("snake/snake/css/main-snake.css")" />   
     <div class="navbar navbar-fixed-top" >
         <div class="navbar-inner">
             <div class="container-fluid" style = "background-color:rgba(15,15,15,.9);">

@@ -1,5 +1,11 @@
 package models;
 
+/**
+ * Form Design for Score
+ * includes get and set methods for user and Score. They are capitalized for issues that came up
+ * elsewhere in the program. 
+ * for set methods, you pass in the String for usre or Double for score that you wish to set them as
+ */
 import play.data.validation.Constraints.Required;
 
 public class ScoreForm {

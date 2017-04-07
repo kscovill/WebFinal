@@ -1,8 +1,9 @@
 @(message: String, scoreForm: Form[ScoreForm], username:String, score:String)
 @implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
 
-@main("Time Tracker") {
-
+@main("Snake App ScoreBoard") {
+	
+    <script src="@routes.Assets.at("javascripts/scoreScreen.js")" type="text/javascript"></script>
     <div class="navbar navbar-fixed-top" >
         <div class="navbar-inner">
             <div class="container-fluid" style = "background-color:rgba(15,15,15,.9);">
