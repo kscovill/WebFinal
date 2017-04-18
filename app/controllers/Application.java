@@ -58,6 +58,7 @@ public class Application extends Controller {
 	 * page when called in routes. Checks for
 	 * 
 	 * @return
+	 * 		returns a redirect to the scoreScreen if form has no errors
 	 */
 
 	public Result moveToScore() {
@@ -116,10 +117,10 @@ public class Application extends Controller {
 	 * Fetches all scores associated with a specific username.
 	 * 
 	 */
-	public Result getYourScores() {
+	public Result getUserScores() {
 		String user = session("username");
 		log.debug("SESSION USERNAME {} FOUND", user);
-		List<Score> yourScores = scorePersist.fetchYourScores(user);
-		return ok(play.libs.Json.toJson(yourScores));
+		List<Score> userScores = scorePersist.fetchUserScores(user);
+		return ok(play.libs.Json.toJson(userScores));
 	}
 }

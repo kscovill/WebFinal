@@ -1,12 +1,14 @@
 package configs;
 
+/**
+ * DataConfig is where out entity manager is created and our entiyManagerFactory to manage all our entities.
+ * 
+ * This also returns the datasource for the database(URL, User, Pass, etc) and makes a jpa TRansaction MAnager.
+ */
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-/**
- * DataConfig is where out entity manager is created and our entiyManagerFactory to manage all our entities.
- * This also returns the datasource for the database(URL, User, Pass, etc) and makes a jpa TRansaction MAnager.
- */
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;

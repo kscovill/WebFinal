@@ -21,6 +21,7 @@ public interface LoginPersistenceService {
 	 * @param user
 	 *            is the String of the username you wish to search for.
 	 * @return
+	 * 			  if it exists, the boolean is true
 	 */
 	boolean userExists(String user);
 

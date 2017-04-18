@@ -45,7 +45,7 @@ public class ScorePersistenceServiceImpl implements ScorePersistenceService {
 	 * Fetches top 50 scores attatched to a username
 	 */
 	@Override
-	public List<Score> fetchYourScores(String user) {
+	public List<Score> fetchUserScores(String user) {
 		return em.createQuery("SELECT a FROM Score a WHERE a.user = :user ORDER BY score DESC", Score.class)
 				.setParameter("user", user).setMaxResults(50).getResultList();
 	}

@@ -176,7 +176,7 @@ public class LoginPersistenceServiceTest extends AbstractTransactionalJUnit4Spri
 		user.setUsername(null);
 		user.setPassword(null);
 		try {
-			LoginPersist.saveLogin(null);
+			LoginPersist.saveLogin(user);
 			fail("Should not be passed");
 		} catch (IllegalArgumentException expected) {
 
@@ -227,5 +227,17 @@ public class LoginPersistenceServiceTest extends AbstractTransactionalJUnit4Spri
 
 		}
 	}
+	@Test
+	public void saveEmptylUser() {
+		Login user = new Login();
+		try {
+			LoginPersist.saveLogin(user);
+			fail("Should not be passed");
+		} catch (IllegalArgumentException expected) {
+
+		}
+
+	}
+
 
 }

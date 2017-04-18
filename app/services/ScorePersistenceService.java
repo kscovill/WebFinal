@@ -33,6 +33,6 @@ public interface ScorePersistenceService {
 	 *            scores for
 	 * @return a list of score instances
 	 */
-	List<Score> fetchYourScores(String user);
+	List<Score> fetchUserScores(String user);
 
 }

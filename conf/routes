@@ -17,7 +17,7 @@ POST   /user           @controllers.LoginApplication.addUser()
 GET    /scoreScreen    @controllers.Application.scoreScreen()
 POST   /score          @controllers.Application.addScore()
 GET    /scores         @controllers.Application.getScores()
-GET    /yourScores	   @controllers.Application.getYourScores()
+GET    /userScores	   @controllers.Application.getUserScores()
 
 # Game Page
 

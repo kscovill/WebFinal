@@ -60,7 +60,6 @@ public class LoginApplication extends Controller {
 
 	/**
 	 * This will take the data from the form and check to see if the user
-	 * 
 	 * already exists in the database, if not it will hash the password and
 	 * persist the user to the database
 	 */

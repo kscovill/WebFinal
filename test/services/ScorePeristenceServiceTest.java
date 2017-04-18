@@ -57,7 +57,7 @@ public class ScorePeristenceServiceTest extends AbstractTransactionalJUnit4Sprin
 		score3.setScore(25);
 		score3.setUser("Pat");
 		ScorePer.saveScore(score3);
-		List<Score> patrickScores = ScorePer.fetchYourScores("Patrick");
+		List<Score> patrickScores = ScorePer.fetchUserScores("Patrick");
 		assertTrue("Should be 2 scores", patrickScores.size() == 2);
 
 	}
